@@ -15,5 +15,32 @@ const usuarios = [
 ];
 
 // TODO: Define tus rutas aquí
+app.get('/', (req, res) => {
+  res.send('Bienvenid@s a nuestro servidor Express!');
+});
+
+app.get('/productos', (req, res) => {
+  const { categoria } = req.query;
+
+  if (categoria) {
+    const productosFiltrados = productos.filter((producto) => producto.categoria === categoria);
+
+    return res.json(productosFiltrados);
+  }
+
+  return res.json(productos);
+});
+
+app.get('/usuarios/:id', (req, res) => {
+  const id = Number(req.params.id);
+
+  const usuario = usuarios.find((u) => u.id === id);
+
+  if (!usuario) {
+    return res.status(404).send('Usuario no encontrado.');
+  }
+
+  return res.json(usuario);
+});
 
 module.exports = app;
