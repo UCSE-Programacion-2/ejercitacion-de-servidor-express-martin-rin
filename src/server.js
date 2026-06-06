@@ -34,17 +34,13 @@ app.get('/productos', (req, res) => {
 app.get('/usuarios/:id', (req, res) => {
   const id = Number(req.params.id);
 
-  const usuario = usuarios.find((usuario) => usuario.id === id);
+  const usuario = usuarios.find((u) => u.id === id);
 
   if (!usuario) {
     return res.status(404).send('Usuario no encontrado.');
   }
 
   return res.json(usuario);
-});
-
-app.use((req, res) => {
-  res.status(404).send('No se ha encontrado la ruta ingresada.');
 });
 
 module.exports = app;
